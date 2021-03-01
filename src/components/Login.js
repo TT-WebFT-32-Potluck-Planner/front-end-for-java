@@ -3,7 +3,7 @@ const Login = () => {
     <>
       <h1>Login</h1>
 
-      <p class='placeholder'>Login form goes here</p>
+      <p className='placeholder'>Login form goes here</p>
     </>
   )
 }
