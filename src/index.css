@@ -106,6 +106,15 @@ h1 {
   color: red;
 }
 
+/* Login Form */
+.login-container {
+  text-align: center;
+}
+
+.login-form {
+  margin-top: 1rem;
+}
+
 /* Dashboard */
 .dashboard {
   text-align: center;
