@@ -28,6 +28,7 @@ const Dashboard = () => {
         {potlucks.map(item => {
           return (
             <div key={item.organizerid}>
+              <h2>Potluck Information:</h2>
               <p><span>Name:</span> {item.potluckname}</p>
               <p><span>Date:</span> {item.date}</p>
               <p><span>Location:</span> {item.location}</p>
