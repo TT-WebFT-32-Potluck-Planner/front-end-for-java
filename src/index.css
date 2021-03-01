@@ -46,3 +46,101 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+/* Nav */
+nav {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e8e8e4;
+}
+
+a {
+  font-size: 1.1rem;
+  padding: 1rem;
+  text-decoration: none;
+  color: black;
+}
+
+/* Home */
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.home img {
+  width: 100%;
+  height: 700px;
+  object-fit: cover;
+}
+
+.home {
+  text-align: center;
+}
+
+.home h1 {
+  margin-bottom: 1rem;
+}
+
+.home h2 {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.home button {
+  margin-top: 1rem;
+  background-color: orange;
+  color: white;
+  padding: .6rem;
+  border-radius: 15px;
+  font-size: 1rem;
+}
+
+/* Forms */
+.placeholder {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 1rem;
+  color: red;
+}
+
+/* Dashboard */
+.dashboard {
+  text-align: center;
+}
+
+.dashboard h1 {
+  text-decoration: underline 5px solid orange;
+}
+
+.dashboard button {
+  margin-top: 1rem;
+  background-color: orange;
+  color: white;
+  padding: .6rem;
+  border-radius: 15px;
+  font-size: 1rem;
+}
+
+.potluck-card {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.potluck-card h2 {
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-bottom: .5rem;
+}
+
+.potluck-card p {
+  text-transform: capitalize;
+}
+
+.potluck-card span{
+  font-weight: bold;
+}
