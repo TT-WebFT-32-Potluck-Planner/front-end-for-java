@@ -105,3 +105,27 @@ h1 {
   margin-top: 1rem;
   color: red;
 }
+
+/* Dashboard */
+.dashboard {
+  text-align: center;
+}
+
+.dashboard button {
+  margin-top: 1rem;
+  background-color: orange;
+  color: white;
+  padding: .6rem;
+  border-radius: 15px;
+  font-size: 1rem;
+}
+
+.potluck-card {
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.potluck-card span{
+  font-weight: bold;
+}

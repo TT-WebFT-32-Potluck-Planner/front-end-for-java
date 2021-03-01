@@ -9,10 +9,10 @@ const Home = () => {
   }
 
   return (
-    <div class='home'>
+    <div className='home'>
       <h1>Potluck Planner</h1>
 
-      <img src={hero} />
+      <img src={hero} alt='dinner table with food' />
 
       <h2>No account? Signup now!</h2>
 
