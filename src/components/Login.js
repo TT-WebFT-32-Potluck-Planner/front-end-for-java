@@ -14,18 +14,24 @@ const Login = () => {
 
 
   // onChange Handler
-  const change = (evt) => {
+  const change = evt => {
     const { value, name } = evt.target;
+
+    // Good use of the spread operator to keep previous form value state
+    setFormValues({ ...formValues, [name]: value });
 
     const valueToUse = value;
 
     setErrors(name, valueToUse);
 
-    setFormValues({ ...formValues, [name]: valueToUse });
+
+    if (formValues.username && formValues.password !== '') {
+      setDisabled(false)
+    }
   };
 
   // onSubmit Handler
-  const submit = (evt) => {
+  const submit = evt => {
     evt.preventDefault()
   }
 
