@@ -40,6 +40,9 @@ const Signup = () => {
       .post('https://tt-webft-32-potluck-planner.herokuapp.com/api/auth/register', formValues)
       .then(res => {
         console.log(res)
+
+        const userID = res.data.userid
+        localStorage.setItem('userID', userID)
       })
       .catch(err => console.log(err))
   }
