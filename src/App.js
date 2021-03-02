@@ -8,12 +8,16 @@ import PrivateRoute from './components/PrivateRoute'
 import { Switch, Route } from 'react-router-dom'
 import Invite from './components/Invite'
 
+import PotluckCard from './components/PotluckCard'
+
 function App() {
   return (
     <>
       <Navbar />
 
       <Switch>
+
+        <Route component={PotluckCard} path='/potluck' />
         <PrivateRoute component={Dashboard} path='/dash' />
         <Route component={Invite} path='/invite/:potluckid'/>
         <Route component={Signup} path='/signup' />
