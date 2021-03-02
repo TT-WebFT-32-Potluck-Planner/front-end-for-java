@@ -11,6 +11,7 @@ const initialValues = {
 
 const CreatePotluck = () => {
     const [ formValues, setFormValues ] = useState(initialValues);
+    const userID = '2';
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -20,7 +21,7 @@ const CreatePotluck = () => {
     const handleSubmit = e => {
         e.preventDefault();
         axiosWithAuth()
-        .post('/api/users/6/potlucks', formValues)
+        .post(`/api/users/${userID}/potlucks`, formValues)
         .then(res => console.log(res))
         .catch(err => console.log(err));
     };
