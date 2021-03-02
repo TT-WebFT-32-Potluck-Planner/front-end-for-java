@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios'
+
+const initialFormValues = {
+  username: '',
+  password: ''
+}
 
 const Login = () => {
   // state
-  const [formValues, setFormValues] = useState({
-    username: '',
-    password: ''
-  });
+  const [formValues, setFormValues] = useState(initialFormValues);
 
   const [errors, setErrors] = useState({ username: '', password: '' });
 
@@ -31,22 +33,34 @@ const Login = () => {
   };
 
   // onSubmit Handler
-  const submit = evt => {
+  const submitLogin = evt => {
     evt.preventDefault()
+
+    axios
+      .post('https://tt-webft-32-potluck-planner.herokuapp.com/api/auth/login', formValues)
+      .then(res => {
+        console.log('Login Post Response', res)
+
+        const token = res.data.token
+
+        localStorage.setItem('token', token)
+      })
+      .catch(err => console.log(err))
   }
 
   // JSX
   return (
-    <div className='login-container'>
+    <div className='form-container'>
       <h1>Login</h1>
 
-      <form className='login-formValues' onSubmit={submit}>
+      <form onSubmit={submitLogin}>
         <input
           onChange={change}
           value={formValues.username}
           name='username'
           placeholder='Enter your username'
           type='text'
+          autoComplete='off'
         />
 
         <div> {errors.username} </div>

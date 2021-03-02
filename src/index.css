@@ -99,19 +99,15 @@ h1 {
 }
 
 /* Forms */
-.placeholder {
-  text-align: center;
-  font-size: 2rem;
-  margin-top: 1rem;
-  color: red;
-}
-
-/* Login Form */
-.login-container {
+.form-container {
   text-align: center;
 }
 
-.login-form {
+.form-container h1 {
+  margin-bottom: 1rem;
+}
+
+.form-container button {
   margin-top: 1rem;
 }
 
