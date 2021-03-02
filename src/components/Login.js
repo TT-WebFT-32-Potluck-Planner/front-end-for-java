@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 
 const initialFormValues = {
@@ -14,6 +15,8 @@ const Login = () => {
   const [errors, setErrors] = useState({ username: '', password: '' });
 
   const [disabled, setDisabled] = useState(true);
+
+  const history = useHistory()
 
 
   // onChange Handler
@@ -47,6 +50,8 @@ const Login = () => {
         localStorage.setItem('token', token)
 
         setSuccessMessage(res.data.message)
+
+        history.push('/dash')
       })
       .catch(err => console.log(err))
   }
