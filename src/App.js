@@ -6,12 +6,15 @@ import Login from './components/Login'
 import CreatePotluck from './components/CreatePotluck'
 import { Switch, Route } from 'react-router-dom'
 
+import PotluckCard from './components/PotluckCard'
+
 function App() {
   return (
     <>
       <Navbar />
 
       <Switch>
+        <Route component={PotluckCard} path='/potluck' />
         <Route component={Dashboard} path='/dash' />
         <Route component={Signup} path='/signup' />
         <Route component={Login} path='/login' />
