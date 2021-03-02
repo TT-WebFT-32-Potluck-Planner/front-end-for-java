@@ -7,12 +7,16 @@ import CreatePotluck from './components/CreatePotluck'
 import PrivateRoute from './components/PrivateRoute'
 import { Switch, Route } from 'react-router-dom'
 
+import PotluckCard from './components/PotluckCard'
+
 function App() {
   return (
     <>
       <Navbar />
 
       <Switch>
+
+        <Route component={PotluckCard} path='/potluck' />
         <PrivateRoute component={Dashboard} path='/dash' />
         <Route component={Signup} path='/signup' />
         <Route component={Login} path='/login' />
