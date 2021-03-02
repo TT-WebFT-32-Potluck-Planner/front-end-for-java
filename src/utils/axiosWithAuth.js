@@ -3,10 +3,11 @@ import axios from 'axios';
 
 export const axiosWithAuth = () => {
     const token = localStorage.getItem('token');
+    console.log('Token: ', token);
     return axios.create({
         headers: {
-            Authorization: token
+            Authorization: token,
          },
-         baseURL: 'http://tt-web-32-potluck-planner.herokuapp.com'
+         baseURL: 'https://tt-webft-32-potluck-planner.herokuapp.com'
     });
 };

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 const log = console.log
 
@@ -16,6 +17,12 @@ const Dashboard = () => {
       })
       .catch(err => log(err))
   }, [])
+
+  const history = useHistory();
+
+  const routeToCreate = () => {
+    history.push('/create');
+  };
 
 
   return (
@@ -36,6 +43,7 @@ const Dashboard = () => {
             </div>
           )
         })}
+        <button onClick={routeToCreate}>Create New Potluck</button>
       </div>
 
 
