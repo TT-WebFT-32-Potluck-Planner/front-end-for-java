@@ -6,6 +6,7 @@ import Login from './components/Login'
 import CreatePotluck from './components/CreatePotluck'
 import PrivateRoute from './components/PrivateRoute'
 import { Switch, Route } from 'react-router-dom'
+import Invite from './components/Invite'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
 
       <Switch>
         <PrivateRoute component={Dashboard} path='/dash' />
+        <Route component={Invite} path='/invite/:potluckid'/>
         <Route component={Signup} path='/signup' />
         <Route component={Login} path='/login' />
         <Route component={CreatePotluck} path='/create' />
