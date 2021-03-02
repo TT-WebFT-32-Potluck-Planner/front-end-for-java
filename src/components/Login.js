@@ -42,14 +42,21 @@ const Login = () => {
       .then(res => {
         console.log('Login Post Response', res)
 
-        const token = res.data.token
-
-        localStorage.setItem('token', token)
+        const token = res.data.token;
+        const userID = res.data.user.userid;
+        localStorage.setItem('token', token);
+        localStorage.setItem('userID', userID);
 
         setSuccessMessage(res.data.message)
       })
       .catch(err => console.log(err))
   }
+
+  const logout = e => {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    localStorage.removeItem('userID');
+  };
 
   // JSX
   return (
@@ -81,7 +88,9 @@ const Login = () => {
         <button disabled={disabled}>Login</button>
       </form>
 
-      {successMessage !== '' ? <p><p id='login-success'>{successMessage}</p></p> : ''}
+      {successMessage !== '' ? <p id='login-success'>{successMessage}</p> : ''}
+
+      {localStorage.getItem('token') && <button onClick={logout}>Logout</button>}
 
     </div >
   )
