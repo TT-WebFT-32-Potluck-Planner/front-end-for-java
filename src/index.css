@@ -130,6 +130,10 @@ h1 {
   text-decoration: underline 5px solid orange;
 }
 
+.dashboard h2 {
+  margin-top: 20px;
+}
+
 .dashboard button {
   margin-top: 1rem;
   background-color: orange;
@@ -139,11 +143,20 @@ h1 {
   font-size: 1rem;
 }
 
+.potluck-card-details {
+  border: 1px solid red;
+  width: fit-content;
+  padding: 10px;
+}
+
 .potluck-card {
+  display: flex;
+  width: 90%;
   margin-top: 2rem;
   font-size: 1.2rem;
   line-height: 1.5;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid black;
 }
 
 .potluck-card h2 {
