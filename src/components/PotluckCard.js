@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 const dummyData = {
   name: 'Jorge\'s Mars Sendoff Brunch',
@@ -16,17 +18,30 @@ const dummyData = {
 }
 
 const PotluckCard = () => {
+  const [potluckData, setPotluckData] = useState(dummyData);
+  const { potluckid } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks/${potluckid}`)
+      .then(res => {
+        console.log(res);
+        setPotluckData(res.data);
+      })
+      .catch(err => console.log(err));
+  },[]);
+
   return (
     <>
       <main>
         <section className='card'>
-          <h1>{dummyData.name}</h1>
+          <h1>{potluckData.potluckname}</h1>
 
           <div className='food-items'>
             <h2>Potluck Info:</h2>
-            <p><span>Location:</span> {dummyData.location}</p>
-            <p><span>Date:</span> {dummyData.date}</p>
-            <p><span>Time:</span> {dummyData.time}</p>
+            <p><span>Location:</span> {potluckData.location}</p>
+            <p><span>Date:</span> {potluckData.date}</p>
+            <p><span>Time:</span> {potluckData.time}</p>
 
             <h2>Claimed Food:</h2>
             <ul>
