@@ -9,6 +9,7 @@ const initialFormValues = {
 const Login = () => {
   // state
   const [formValues, setFormValues] = useState(initialFormValues);
+  const [successMessage, setSuccessMessage] = useState('')
 
   const [errors, setErrors] = useState({ username: '', password: '' });
 
@@ -44,6 +45,8 @@ const Login = () => {
         const token = res.data.token
 
         localStorage.setItem('token', token)
+
+        setSuccessMessage(res.data.message)
       })
       .catch(err => console.log(err))
   }
@@ -77,6 +80,9 @@ const Login = () => {
 
         <button disabled={disabled}>Login</button>
       </form>
+
+      {successMessage !== '' ? <p><p id='login-success'>{successMessage}</p></p> : ''}
+
     </div >
   )
 };
