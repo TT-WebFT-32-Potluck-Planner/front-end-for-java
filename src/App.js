@@ -17,7 +17,7 @@ function App() {
 
       <Switch>
 
-        <Route component={PotluckCard} path='/potluck' />
+        <Route component={PotluckCard} path='/potluck/:potluckid' />
         <PrivateRoute component={Dashboard} path='/dash' />
         <Route component={Invite} path='/invite/:potluckid'/>
         <Route component={Signup} path='/signup' />

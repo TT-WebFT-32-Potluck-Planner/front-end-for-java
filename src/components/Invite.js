@@ -22,7 +22,7 @@ const Invite = () => {
                 setPotluckData(res.data);
             })
             .catch(err => console.log(err));
-    });
+    },[]);
 
     return (
         <div>
