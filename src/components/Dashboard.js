@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 const log = console.log;
-const userID = '2';
+const userID = localStorage.getItem('userID');
 const Dashboard = () => {
   const [potlucks, setPotlucks] = useState([]);
   const [orgPotlucks, setOrgPotlucks] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks`)
+    axiosWithAuth()
+      .get(`api/users/${userID}/potlucks`)
       .then(res => {
         log('API Data:', res.data)
 
