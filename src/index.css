@@ -55,7 +55,7 @@ nav {
 }
 
 a {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   padding: 1rem;
   text-decoration: none;
   color: black;
@@ -109,6 +109,16 @@ h1 {
 
 .form-container button {
   margin-top: 1rem;
+}
+
+#login-success {
+  margin-top: 5rem;
+  color: grey;
+  font-size: 1.3rem;
+  border: 1px solid #e8e8e4;
+  border-radius: 20px;
+  padding: 4.5rem;
+  display: inline-block;
 }
 
 /* Dashboard */
