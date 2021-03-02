@@ -238,3 +238,10 @@ main {
 body {
   overflow: hidden;
 }
+
+.invitation {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  margin: auto;
+}
