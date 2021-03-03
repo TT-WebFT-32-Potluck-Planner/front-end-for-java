@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom';
 
 const initialFormValues = {
   username: '',
@@ -51,6 +51,8 @@ const Login = () => {
         localStorage.setItem('userID', userID);
         setErrorMessage('');
         setSuccessMessage(res.data.message)
+
+        history.push('/dash')
       })
       .catch(err => {
         console.log(err);
@@ -78,50 +80,50 @@ const Login = () => {
 
   // JSX
   return (
-    
+
     <div className='form-container'>
       {localStorage.getItem('token') ? '' :
-      <div>
-      <h1>Login</h1>
+        <div>
+          <h1>Login</h1>
 
-      <form onSubmit={submitLogin}>
-        <input
-          onChange={change}
-          value={formValues.username}
-          name='username'
-          placeholder='Enter your username'
-          type='text'
-          autoComplete='off'
-        />
+          <form onSubmit={submitLogin}>
+            <input
+              onChange={change}
+              value={formValues.username}
+              name='username'
+              placeholder='Enter your username'
+              type='text'
+              autoComplete='off'
+            />
 
-        <div> {errors.username} </div>
+            <div> {errors.username} </div>
 
-        <input
-          onChange={change}
-          value={formValues.password}
-          name='password'
-          placeholder='Enter your password'
-          type='password'
-        />
+            <input
+              onChange={change}
+              value={formValues.password}
+              name='password'
+              placeholder='Enter your password'
+              type='password'
+            />
 
-        <div> {errors.password} </div>
+            <div> {errors.password} </div>
 
-        <button disabled={disabled}>Login</button>
-      </form>
-      <p className='error'>{errorMessage}</p>
-      <br/>
-      <p>Don't have an account? <a onClick={routeToSignUp}>sign up!</a></p>
-      </div>
+            <button disabled={disabled}>Login</button>
+          </form>
+          <p className='error'>{errorMessage}</p>
+          <br />
+          <p>Don't have an account? <a onClick={routeToSignUp}>sign up!</a></p>
+        </div>
       }
-      
+
 
       {successMessage !== '' ? <p id='login-success'>{successMessage}</p> : ''}
 
-      {localStorage.getItem('token') ? 
-      <div>
-        <button onClick={routeToDashboard}>Go to Dashboard</button>
-        <button onClick={logout}>Logout</button>
-      </div> : ''
+      {localStorage.getItem('token') ?
+        <div>
+          <button onClick={routeToDashboard}>Go to Dashboard</button>
+          <button onClick={logout}>Logout</button>
+        </div> : ''
       }
 
     </div >
