@@ -111,6 +111,18 @@ h1 {
   margin-top: 1rem;
 }
 
+.form-container a {
+  background-color: #fcbf49;
+  padding: 2px;
+  border: 1px solid #fcbf49;
+  border-radius: 2px;
+}
+
+.form-container a:hover {
+  background-color: white;
+  color: #fcbf49;
+}
+
 #login-success {
   margin-top: 5rem;
   color: grey;
@@ -237,4 +249,16 @@ main {
 
 body {
   overflow: hidden;
+}
+
+.invitation {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  margin: auto;
+}
+
+.error {
+  color: red;
+  margin: 5px;
 }

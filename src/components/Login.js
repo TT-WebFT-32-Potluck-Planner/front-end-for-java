@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useHistory } from 'react-router-dom';
 
 const initialFormValues = {
   username: '',
@@ -9,11 +10,13 @@ const initialFormValues = {
 const Login = () => {
   // state
   const [formValues, setFormValues] = useState(initialFormValues);
-  const [successMessage, setSuccessMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [errors, setErrors] = useState({ username: '', password: '' });
 
   const [disabled, setDisabled] = useState(true);
+  const history = useHistory();
 
 
   // onChange Handler
@@ -46,21 +49,39 @@ const Login = () => {
         const userID = res.data.user.userid;
         localStorage.setItem('token', token);
         localStorage.setItem('userID', userID);
-
+        setErrorMessage('');
         setSuccessMessage(res.data.message)
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err);
+        setErrorMessage('Invalid username or password');
+      })
   }
 
   const logout = e => {
     e.preventDefault();
     localStorage.removeItem('token');
     localStorage.removeItem('userID');
+    setSuccessMessage('');
+    history.push('/login');
+  };
+
+  const routeToSignUp = e => {
+    e.preventDefault();
+    history.push('/signup');
+  };
+
+  const routeToDashboard = e => {
+    e.preventDefault();
+    history.push('/dash');
   };
 
   // JSX
   return (
+    
     <div className='form-container'>
+      {localStorage.getItem('token') ? '' :
+      <div>
       <h1>Login</h1>
 
       <form onSubmit={submitLogin}>
@@ -87,10 +108,21 @@ const Login = () => {
 
         <button disabled={disabled}>Login</button>
       </form>
+      <p className='error'>{errorMessage}</p>
+      <br/>
+      <p>Don't have an account? <a onClick={routeToSignUp}>sign up!</a></p>
+      </div>
+      }
+      
 
       {successMessage !== '' ? <p id='login-success'>{successMessage}</p> : ''}
 
-      {localStorage.getItem('token') && <button onClick={logout}>Logout</button>}
+      {localStorage.getItem('token') ? 
+      <div>
+        <button onClick={routeToDashboard}>Go to Dashboard</button>
+        <button onClick={logout}>Logout</button>
+      </div> : ''
+      }
 
     </div >
   )
