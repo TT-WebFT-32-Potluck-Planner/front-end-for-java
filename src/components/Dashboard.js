@@ -1,8 +1,6 @@
-import axios from 'axios'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import PotluckCard from './PotluckCard';
 
 const log = console.log;
 const userID = localStorage.getItem('userID');
@@ -74,7 +72,6 @@ const Dashboard = () => {
           })}
           </div>
         <button onClick={routeToCreate}>Create New Potluck</button>
-        <PotluckCard />
       </div>
 
 

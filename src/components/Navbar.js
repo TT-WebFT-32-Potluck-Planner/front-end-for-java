@@ -1,13 +1,24 @@
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+
 
 const Navbar = () => {
+
+  const history = useHistory();
+
+  const logout = e => {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    localStorage.removeItem('userID');
+    history.push('/login');
+  };
+
   return (
     <>
       <nav>
         <Link to='/'>Home</Link>
         <Link to='/dash'>Dashboard</Link>
-        <Link to='/login'>Login</Link>
-        <Link to='/signup'>Signup</Link>
+        {localStorage.getItem('token') ? '' : <Link to='/login'>Login</Link>}
+        {localStorage.getItem('token') ? <Link onClick={logout}>Logout</Link> : ''}
       </nav>
     </>
   )
