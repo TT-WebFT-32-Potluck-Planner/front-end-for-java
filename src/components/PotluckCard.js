@@ -37,6 +37,16 @@ const PotluckCard = () => {
     return setInvite(window.location.href)
   }
 
+  const copyLink = () => {
+    const copiedLink = document.getElementById('invite')
+
+    copiedLink.select();
+
+    document.execCommand("copy");
+
+    window.alert('Invite copied, send it to your friends!')
+  }
+
   return (
     <>
       <main>
@@ -58,9 +68,16 @@ const PotluckCard = () => {
 
             <button onClick={getLink}>Invite Guests</button>
 
-            {invite !== '' ?
-              <span id='invite'>Potluck Invite Link:{invite}</span> :
-              null
+            {
+              invite !== '' ?
+                <textarea id='invite'>{invite}</textarea> :
+                null
+            }
+
+            {
+              invite !== '' ?
+                <button onClick={copyLink} id='copy'>Copy to Clipboard</button> :
+                null
             }
           </div>
         </section>
