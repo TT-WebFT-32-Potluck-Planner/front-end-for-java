@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import axios from 'axios';
 
 const initalData = {
     potluckname: '',
@@ -15,13 +16,22 @@ const Invite = () => {
     const [potluckData, setPotluckData] = useState(initalData);
     const history = useHistory();
     const [success, setSuccess] = useState('');
+    const [attendees, setAttendees] = useState([]);
+    const potluckURL = `https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks/${potluckid}`
 
     useEffect(() => {
-        axiosWithAuth()
-            .get(`api/potlucks/${potluckid}`)
+        axios
+            .get(potluckURL)
             .then(res => {
                 console.log(res.data);
                 setPotluckData(res.data);
+            })
+            .catch(err => console.log(err));
+        axios
+            .get(`${potluckURL}/attendees`)
+            .then(res => {
+                console.log(res.data);
+                setAttendees(res.data.map(attendee => attendee.userid.toString()));
             })
             .catch(err => console.log(err));
     },[]);
@@ -47,6 +57,13 @@ const Invite = () => {
         e.preventDefault();
         history.push(`/potluck/${potluckid}`)
     };
+
+    if (attendees.includes(userID)) {
+        return (<div>
+            <h3>You have already RSVP'd for this potluck!</h3>
+            <button onClick={routeToPotluck}>Go To Potluck</button>
+        </div>)
+    }
 
     return (
         <div>
