@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import * as yup from 'yup'; //install yup
 
 const initialFormValues = {
   username: '',
-  password: ''
+  password: '',
 }
 
 const Signup = () => {
@@ -12,29 +13,72 @@ const Signup = () => {
 
   const [errors, setErrors] = useState({
     username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    password: ''
   });
 
   const [disabled, setDisabled] = useState(true);
 
+  const formSchema = yup.object().shape ({
+      username: yup.string().required ("Add an username"),
+      password: yup.string().required ("Add a password"),
+  })
+
+    const changeHandler = (name, value) => {
+    yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then((valid) => {
+        setErrors({
+          ...errors,
+          [name]: "",
+        });
+      })
+      .catch((err) => {
+        setErrors({
+          ...errors,
+          [name]: err.errors[0],
+        });
+      });
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  // const submitHandler = () => {
+  //   setFormValues(initialFormValues);
+  // };
+
   // ONCHANGE
   const change = (evt) => {
     const { value, name } = evt.target;
-    setFormValues({ ...formValues, [name]: value });
+    changeHandler(name, value);
+  };
+  // const submit = (event) => {
+    // event.preventDefault();
+    // submitHandler();
+  // };
+  useEffect(() => {
+    formSchema.isValid(formValues).then((valid) => {
+      setDisabled(!valid);
+    });
+  }, [formSchema, formValues]);
 
-    const valueToUse = value;
 
-    setErrors(name, valueToUse);
+  //   setFormValues({ ...formValues, [name]: value });
 
-    if (formValues.username && formValues.password !== '') {
-      setDisabled(false)
-    }
-  }
+  //   const valueToUse = value;
+
+  //   setErrors(name, valueToUse);
+
+  //   if (formValues.username && formValues.password !== '') {
+  //     setDisabled(false)
+  //   }
+  // }
 
   const submit = evt => {
     evt.preventDefault()
+  
 
     axios
       .post('https://tt-webft-32-potluck-planner.herokuapp.com/api/auth/register', formValues)
@@ -45,7 +89,9 @@ const Signup = () => {
         localStorage.setItem('userID', userID)
       })
       .catch(err => console.log(err))
-  }
+    }
+  
+  
 
   //JSX 
   return (
@@ -64,9 +110,7 @@ const Signup = () => {
 
         <div> {errors.username} </div>
 
-        <div> {errors.email} </div>
-
-        <input
+          <input
           onChange={change}
           value={formValues.password}
           placeholder="Password"
@@ -79,8 +123,9 @@ const Signup = () => {
         <button disabled={disabled}>Signup</button>
       </form>
     </div>
-  )
-};
+    )
+}
+  
 
 
 export default Signup;
