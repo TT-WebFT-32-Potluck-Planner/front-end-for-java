@@ -217,6 +217,23 @@ main {
   margin-top: 2.5rem;
 }
 
+#invite {
+  display: block;
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: blue;
+  text-align: center;
+}
+
+#copy {
+  display: block;
+  margin: 0 auto;
+  background-color: royalblue;
+  border-radius: 6px;
+  padding: .4rem;
+}
+
 .food-items {
   text-align: center;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
