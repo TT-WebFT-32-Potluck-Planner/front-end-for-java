@@ -20,16 +20,22 @@ const dummyData = {
 const PotluckCard = () => {
   const [potluckData, setPotluckData] = useState(dummyData);
   const { potluckid } = useParams();
+  const [invite, setInvite] = useState('')
 
   useEffect(() => {
     axios
       .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks/${potluckid}`)
       .then(res => {
-        console.log(res);
+        console.log('Backend Data:', res);
+
         setPotluckData(res.data);
       })
       .catch(err => console.log(err));
-  },[]);
+  }, []);
+
+  const getLink = () => {
+    return setInvite(window.location.href)
+  }
 
   return (
     <>
@@ -50,6 +56,12 @@ const PotluckCard = () => {
               })}
             </ul>
 
+            <button onClick={getLink}>Invite Guests</button>
+
+            {invite !== '' ?
+              <span id='invite'>Potluck Invite Link:{invite}</span> :
+              null
+            }
           </div>
         </section>
       </main>

@@ -205,11 +205,23 @@ main {
     rgba(255, 255, 255, .7),
     rgba(255, 255, 255, .3));
   border-radius: 2rem;
+  text-align: center;
+}
+
+.food-items button {
+  background-color: orange;
+  color: white;
+  padding: .7rem;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  margin-top: 2.5rem;
 }
 
 .food-items {
   text-align: center;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  bottom: 2rem;
 }
 
 .card h1 {
