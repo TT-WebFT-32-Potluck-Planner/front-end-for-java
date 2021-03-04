@@ -17,14 +17,14 @@ const Dashboard = () => {
         setPotlucks(res.data)
       })
       .catch(err => log(err));
-      
-      axiosWithAuth()
-        .get(`api/users/${userID}/created`)
-        .then(res => {
-          log('Created Potluck Data: ', res.data)
-          setOrgPotlucks(res.data);
+
+    axiosWithAuth()
+      .get(`api/users/${userID}/created`)
+      .then(res => {
+        log('Created Potluck Data: ', res.data)
+        setOrgPotlucks(res.data);
       })
-        .catch(err => log(err));
+      .catch(err => log(err));
   }, [])
 
   const history = useHistory();
@@ -43,9 +43,11 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
 
       {log('Potluck State:', potlucks)}
-      
+
       <div className='dashboard'>
+
         <h2>Potlucks Organized by You</h2>
+
         <div className='potluck-card'>
           {orgPotlucks.map(item => {
             return (
@@ -57,9 +59,9 @@ const Dashboard = () => {
               </div>
             )
           })}
-          </div>
-          <h2>Potlucks You're Attending</h2>
-          <div className='potluck-card'>
+        </div>
+        <h2>Potlucks You're Attending</h2>
+        <div className='potluck-card'>
           {potlucks.map(item => {
             return (
               <div key={item.potluckid} id={item.potluckid} className='potluck-card-details' onClick={routeToPotluck}>
@@ -70,7 +72,7 @@ const Dashboard = () => {
               </div>
             )
           })}
-          </div>
+        </div>
         <button onClick={routeToCreate}>Create New Potluck</button>
       </div>
 
