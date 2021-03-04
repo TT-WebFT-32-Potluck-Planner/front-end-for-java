@@ -7,7 +7,8 @@ const initalData = {
     potluckname: '',
     date: '',
     time: '',
-    location: ''
+    location: '',
+    organizerid: ''
 };
 
 const Invite = () => {
@@ -61,6 +62,13 @@ const Invite = () => {
     if (attendees.includes(userID)) {
         return (<div>
             <h3>You have already RSVP'd for this potluck!</h3>
+            <button onClick={routeToPotluck}>Go To Potluck</button>
+        </div>)
+    }
+
+    if (localStorage.getItem('userID') === potluckData.organizerid.toString()) {
+        return (<div>
+            <h3>You are the organizer of this potluck!</h3>
             <button onClick={routeToPotluck}>Go To Potluck</button>
         </div>)
     }
