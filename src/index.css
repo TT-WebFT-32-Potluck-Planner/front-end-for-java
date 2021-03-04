@@ -323,3 +323,14 @@ body {
   display: block;
   margin: 4px 0px;
 }
+
+/* Signup Success Message */
+#signup-success {
+  color: #33FF36;
+  font-size: 1.8rem;
+  margin-top: 1rem;
+}
+
+#username {
+  color: red;
+}
