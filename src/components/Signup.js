@@ -23,9 +23,12 @@ const Signup = () => {
 
   const [disabled, setDisabled] = useState(true);
 
-  const formSchema = yup.object().shape({
-    username: yup.string().required("Add an username"),
-    password: yup.string().required("Add a password"),
+
+  const history = useHistory();
+
+  const formSchema = yup.object().shape ({
+      username: yup.string().required ("Add an username"),
+      password: yup.string().required ("Add a password"),
   })
 
   const changeHandler = (name, value) => {
@@ -80,6 +83,11 @@ const Signup = () => {
   //     setDisabled(false)
   //   }
   // }
+
+  const routeToLogin = e => {
+    e.preventDefault();
+    history.push('/login');
+  };
 
   const submit = evt => {
     evt.preventDefault()
@@ -141,6 +149,10 @@ const Signup = () => {
         <div id='signup-success'>Your username is: <span id='username'>{username}</span></div> :
         null
       }
+
+      <br />
+      <p>Already have an account? <a onClick={routeToLogin}>Log In!</a></p>
+
     </div>
   )
 }
