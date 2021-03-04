@@ -238,7 +238,11 @@ main {
   text-align: center;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
+<<<<<<< HEAD
+  bottom: 2rem;
+=======
   bottom: 3rem;
+>>>>>>> 97e51d058e3d7906fd6790e62603a56f1152fec1
 }
 
 .card h1 {
@@ -305,6 +309,8 @@ body {
   color: red;
   margin: 5px;
 }
+<<<<<<< HEAD
+=======
 
 .food-table {
   display: flex;
@@ -323,3 +329,4 @@ body {
   display: block;
   margin: 4px 0px;
 }
+>>>>>>> 97e51d058e3d7906fd6790e62603a56f1152fec1

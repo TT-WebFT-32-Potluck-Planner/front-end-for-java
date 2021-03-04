@@ -24,6 +24,22 @@ const PotluckCard = () => {
   const [potluckData, setPotluckData] = useState(dummyData);
   const { potluckid } = useParams();
   const [invite, setInvite] = useState('')
+<<<<<<< HEAD
+
+  useEffect(() => {
+    axios
+      .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks/${potluckid}`)
+      .then(res => {
+        console.log('Backend Data:', res);
+
+        setPotluckData(res.data);
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  const getLink = () => {
+    return setInvite(window.location.href)
+=======
   const isOrganizer = localStorage.getItem('userID') === potluckData.organizerid.toString()
   const [edit, setEdit] = useState(false)
   
@@ -42,6 +58,7 @@ const PotluckCard = () => {
     const fullURL = window.location.href;
     const baseURL = fullURL.substring(0, fullURL.length - 11)
     return setInvite(`${baseURL}/invite/${potluckid}`)
+>>>>>>> 97e51d058e3d7906fd6790e62603a56f1152fec1
   }
 
   const copyLink = () => {
@@ -53,11 +70,14 @@ const PotluckCard = () => {
 
     window.alert('Invite copied, send it to your friends!')
   }
+<<<<<<< HEAD
+=======
 
   const toggleEdit = e => {
     e.preventDefault();
     setEdit(!edit);
   };
+>>>>>>> 97e51d058e3d7906fd6790e62603a56f1152fec1
 
   return (
     <>
@@ -87,6 +107,17 @@ const PotluckCard = () => {
                 null
             }
 
+<<<<<<< HEAD
+            <button onClick={getLink}>Invite Guests</button>
+
+            {
+              invite !== '' ?
+                <textarea id='invite'>{invite}</textarea> :
+                null
+            }
+
+=======
+>>>>>>> 97e51d058e3d7906fd6790e62603a56f1152fec1
             {
               invite !== '' ?
                 <button onClick={copyLink} id='copy'>Copy to Clipboard</button> :
