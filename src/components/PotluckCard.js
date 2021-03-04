@@ -26,12 +26,12 @@ const PotluckCard = () => {
   const [invite, setInvite] = useState('')
   const isOrganizer = localStorage.getItem('userID') === potluckData.organizerid.toString()
   const [edit, setEdit] = useState(false)
-  
+
   const getPotluckData = () => {
     axios
-    .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks/${potluckid}`)
-    .then(res => setPotluckData(res.data))
-    .catch(err => console.log(err.response.data));
+      .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks/${potluckid}`)
+      .then(res => setPotluckData(res.data))
+      .catch(err => console.log(err.response.data));
   };
 
   useEffect(() => {
@@ -66,18 +66,18 @@ const PotluckCard = () => {
           <h1>{potluckData.potluckname}</h1>
 
           <div className='food-items'>
-            {edit ? <EditPotluck potluckid={potluckid} potluckData={potluckData} toggleEdit={toggleEdit} getPotluckData={getPotluckData}/> :
+            {edit ? <EditPotluck potluckid={potluckid} potluckData={potluckData} toggleEdit={toggleEdit} getPotluckData={getPotluckData} /> :
               <>
-              <h2>Potluck Info:</h2>
-              <p><span>Location:</span> {potluckData.location}</p>
-              <p><span>Date:</span> {potluckData.date}</p>
-              <p><span>Time:</span> {potluckData.time}</p>
-              { isOrganizer ? <button onClick={toggleEdit}>Edit Details</button> : ''}
+                <h2>Potluck Info:</h2>
+                <p><span>Location:</span> {potluckData.location}</p>
+                <p><span>Date:</span> {potluckData.date}</p>
+                <p><span>Time:</span> {potluckData.time}</p>
+                {isOrganizer ? <button onClick={toggleEdit}>Edit Details</button> : ''}
               </>
             }
 
             <h2>Food Items:</h2>
-           <FoodList potluckid={potluckid} potluckData={potluckData} /> 
+            <FoodList potluckid={potluckid} potluckData={potluckData} />
 
             <button onClick={getLink}>Invite Guests</button>
 
