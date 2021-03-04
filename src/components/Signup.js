@@ -23,12 +23,9 @@ const Signup = () => {
 
   const [disabled, setDisabled] = useState(true);
 
-
-  const history = useHistory();
-
-  const formSchema = yup.object().shape ({
-      username: yup.string().required ("Add an username"),
-      password: yup.string().required ("Add a password"),
+  const formSchema = yup.object().shape({
+    username: yup.string().required("Add an username"),
+    password: yup.string().required("Add a password"),
   })
 
   const changeHandler = (name, value) => {
