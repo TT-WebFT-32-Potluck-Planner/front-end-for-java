@@ -36,7 +36,9 @@ const PotluckCard = () => {
   }, []);
 
   const getLink = () => {
-    return setInvite(window.location.href)
+    const fullURL = window.location.href;
+    const baseURL = fullURL.substring(0, fullURL.length - 11)
+    return setInvite(`${baseURL}/invite/${potluckid}`)
   }
 
   const copyLink = () => {
