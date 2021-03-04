@@ -199,7 +199,7 @@ main {
   min-height: 70vh;
   width: 40%;
   position: relative;
-  bottom: 1.6rem;
+  bottom: 1rem;
   background: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, .7),
@@ -238,7 +238,11 @@ main {
   text-align: center;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
+<<<<<<< HEAD
   bottom: 2rem;
+=======
+  bottom: 3rem;
+>>>>>>> 97e51d058e3d7906fd6790e62603a56f1152fec1
 }
 
 .card h1 {
@@ -269,11 +273,25 @@ main {
 }
 
 .food-items p {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .food-items {
   padding: 95px 0;
+}
+
+.food-items a {
+  background-color: red;
+  color: white;
+  padding: 2px;
+  font-size: 0.75rem;
+  border: solid red 1px;
+  border-radius: 5px;
+}
+
+.food-items a:hover {
+  background-color: white;
+  color: red;
 }
 
 body {
@@ -291,3 +309,24 @@ body {
   color: red;
   margin: 5px;
 }
+<<<<<<< HEAD
+=======
+
+.food-table {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+}
+
+.table-column {
+  display: flex;
+  flex-flow: column nowrap;
+  margin:  0px 20px;
+  justify-content: space-evenly;
+}
+
+.table-cell {
+  display: block;
+  margin: 4px 0px;
+}
+>>>>>>> 97e51d058e3d7906fd6790e62603a56f1152fec1
