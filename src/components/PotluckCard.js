@@ -24,30 +24,14 @@ const PotluckCard = () => {
   const [potluckData, setPotluckData] = useState(dummyData);
   const { potluckid } = useParams();
   const [invite, setInvite] = useState('')
-<<<<<<< HEAD
-
-  useEffect(() => {
-    axios
-      .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks/${potluckid}`)
-      .then(res => {
-        console.log('Backend Data:', res);
-
-        setPotluckData(res.data);
-      })
-      .catch(err => console.log(err));
-  }, []);
-
-  const getLink = () => {
-    return setInvite(window.location.href)
-=======
   const isOrganizer = localStorage.getItem('userID') === potluckData.organizerid.toString()
   const [edit, setEdit] = useState(false)
-  
+
   const getPotluckData = () => {
     axios
-    .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks/${potluckid}`)
-    .then(res => setPotluckData(res.data))
-    .catch(err => console.log(err.response.data));
+      .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks/${potluckid}`)
+      .then(res => setPotluckData(res.data))
+      .catch(err => console.log(err.response.data));
   };
 
   useEffect(() => {
@@ -58,7 +42,6 @@ const PotluckCard = () => {
     const fullURL = window.location.href;
     const baseURL = fullURL.substring(0, fullURL.length - 11)
     return setInvite(`${baseURL}/invite/${potluckid}`)
->>>>>>> 97e51d058e3d7906fd6790e62603a56f1152fec1
   }
 
   const copyLink = () => {
@@ -70,14 +53,11 @@ const PotluckCard = () => {
 
     window.alert('Invite copied, send it to your friends!')
   }
-<<<<<<< HEAD
-=======
 
   const toggleEdit = e => {
     e.preventDefault();
     setEdit(!edit);
   };
->>>>>>> 97e51d058e3d7906fd6790e62603a56f1152fec1
 
   return (
     <>
@@ -86,18 +66,18 @@ const PotluckCard = () => {
           <h1>{potluckData.potluckname}</h1>
 
           <div className='food-items'>
-            {edit ? <EditPotluck potluckid={potluckid} potluckData={potluckData} toggleEdit={toggleEdit} getPotluckData={getPotluckData}/> :
+            {edit ? <EditPotluck potluckid={potluckid} potluckData={potluckData} toggleEdit={toggleEdit} getPotluckData={getPotluckData} /> :
               <>
-              <h2>Potluck Info:</h2>
-              <p><span>Location:</span> {potluckData.location}</p>
-              <p><span>Date:</span> {potluckData.date}</p>
-              <p><span>Time:</span> {potluckData.time}</p>
-              { isOrganizer ? <button onClick={toggleEdit}>Edit Details</button> : ''}
+                <h2>Potluck Info:</h2>
+                <p><span>Location:</span> {potluckData.location}</p>
+                <p><span>Date:</span> {potluckData.date}</p>
+                <p><span>Time:</span> {potluckData.time}</p>
+                {isOrganizer ? <button onClick={toggleEdit}>Edit Details</button> : ''}
               </>
             }
 
             <h2>Food Items:</h2>
-           <FoodList potluckid={potluckid} potluckData={potluckData} /> 
+            <FoodList potluckid={potluckid} potluckData={potluckData} />
 
             <button onClick={getLink}>Invite Guests</button>
 
@@ -107,17 +87,6 @@ const PotluckCard = () => {
                 null
             }
 
-<<<<<<< HEAD
-            <button onClick={getLink}>Invite Guests</button>
-
-            {
-              invite !== '' ?
-                <textarea id='invite'>{invite}</textarea> :
-                null
-            }
-
-=======
->>>>>>> 97e51d058e3d7906fd6790e62603a56f1152fec1
             {
               invite !== '' ?
                 <button onClick={copyLink} id='copy'>Copy to Clipboard</button> :
