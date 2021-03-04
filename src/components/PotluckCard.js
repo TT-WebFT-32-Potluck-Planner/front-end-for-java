@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import FoodList from '../components/FoodList'
 
 const dummyData = {
   name: 'Jorge\'s Mars Sendoff Brunch',
@@ -14,7 +15,8 @@ const dummyData = {
     'Applepie',
     'Raspberry Swirl Rolls',
     'Chocolate Cake'
-  ]
+  ],
+  organizerid: ''
 }
 
 const PotluckCard = () => {
@@ -59,12 +61,8 @@ const PotluckCard = () => {
             <p><span>Date:</span> {potluckData.date}</p>
             <p><span>Time:</span> {potluckData.time}</p>
 
-            <h2>Claimed Food:</h2>
-            <ul>
-              {dummyData.claimedFood.map(item => {
-                return <li>{item}</li>
-              })}
-            </ul>
+            <h2>Food Items:</h2>
+           <FoodList potluckid={potluckid} potluckData={potluckData} /> 
 
             <button onClick={getLink}>Invite Guests</button>
 
