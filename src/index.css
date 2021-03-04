@@ -157,9 +157,16 @@ h1 {
 }
 
 .potluck-card-details {
-  border: 1px solid red;
-  width: fit-content;
-  padding: 10px;
+  border: 1px solid #d8e2dc;
+  border-radius: 13px;
+  width: 10rem;
+  padding: 45px 30px;
+  box-shadow: -13px 13px 20px rgba(0, 0, 0, .15);
+  margin-right: 3.5rem;
+}
+
+.potluck-card-details:hover {
+  cursor: pointer;
 }
 
 .potluck-card {
@@ -169,7 +176,7 @@ h1 {
   font-size: 1.2rem;
   line-height: 1.5;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .potluck-card h2 {
