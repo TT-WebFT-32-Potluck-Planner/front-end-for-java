@@ -17,8 +17,11 @@ const Navbar = () => {
       <nav>
         <Link to='/'>Home</Link>
         <Link to='/dash'>Dashboard</Link>
-        {localStorage.getItem('token') ? '' : <Link to='/login'>Login</Link>}
-        {localStorage.getItem('token') ? <Link onClick={logout}>Logout</Link> : ''}
+        {localStorage.getItem('token')
+          ? <Link onClick={logout}>Logout</Link>
+          : <Link to='/login'>Login</Link>
+        }
+
       </nav>
     </>
   )
