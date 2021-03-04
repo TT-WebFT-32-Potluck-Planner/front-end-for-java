@@ -165,7 +165,7 @@ h1 {
 .potluck-card {
   display: flex;
   width: 90%;
-  margin-top: 2rem;
+  margin: 2rem auto 0 auto;
   font-size: 1.2rem;
   line-height: 1.5;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -291,9 +291,9 @@ main {
   color: red;
 }
 
-body {
+/* body {
   overflow: hidden;
-}
+} */
 
 .invitation {
   display: flex;
