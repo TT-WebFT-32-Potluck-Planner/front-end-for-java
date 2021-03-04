@@ -8,6 +8,7 @@ const FoodList =  props => {
     const { potluckid, potluckData } = props;
     const isOrganizer = localStorage.getItem('userID') === potluckData.organizerid.toString();
     const [addItem, setAddItem] = useState({itemname:''});
+    const [error, setError] = useState('');
 
     const handleChange = e => {
         setAddItem({itemname: e.target.value});
@@ -31,7 +32,10 @@ const FoodList =  props => {
                 console.log(res);
                 getFoodList(potluckid);
             })
-            .catch(err => console.log(err.response.data));
+            .catch(err => {
+                console.log(err.response.data);
+                setError(err.response.data.message);
+            });
     };
 
     const removeFood = e => {
@@ -79,6 +83,7 @@ const FoodList =  props => {
             <div>
             <button onClick={addFood}>Add Food Item</button>
             <input type='text' name='foodItem' onChange={handleChange} value={addItem.itemname}/>
+            <p>{error}</p>
             </div> : ''
             }
         </div>
