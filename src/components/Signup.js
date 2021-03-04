@@ -101,6 +101,8 @@ const Signup = () => {
 
         const userID = res.data.userid
         localStorage.setItem('userID', userID)
+
+        setFormValues(initialFormValues);
       })
       .catch(err => console.log('Failure:', err))
   }
