@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import * as yup from 'yup'; //install yup
+import { useHistory } from 'react-router-dom'
 
 const initialFormValues = {
   username: '',
@@ -17,6 +18,8 @@ const Signup = () => {
   });
 
   const [disabled, setDisabled] = useState(true);
+
+  const history = useHistory();
 
   const formSchema = yup.object().shape ({
       username: yup.string().required ("Add an username"),
@@ -76,6 +79,11 @@ const Signup = () => {
   //   }
   // }
 
+  const routeToLogin = e => {
+    e.preventDefault();
+    history.push('/login');
+  };
+
   const submit = evt => {
     evt.preventDefault()
   
@@ -122,6 +130,8 @@ const Signup = () => {
 
         <button disabled={disabled}>Signup</button>
       </form>
+      <br />
+      <p>Already have an account? <a onClick={routeToLogin}>Log In!</a></p>
     </div>
     )
 }
