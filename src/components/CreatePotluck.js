@@ -1,5 +1,6 @@
 //Form for creating a potluck
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import * as yup from 'yup'; //install yup
 
@@ -13,7 +14,9 @@ const initialValues = {
 
 const CreatePotluck = () => {
     const [ formValues, setFormValues ] = useState(initialValues);
-    const userID = '2';
+    const userID = localStorage.getItem('userID');
+    const history = useHistory();
+    const [submitResult, setSubmitResult] = useState('');
 
     const [errors, setErrors] = useState ({
         potluckname: '',
@@ -63,8 +66,15 @@ const CreatePotluck = () => {
     e.preventDefault();
     axiosWithAuth()
     .post(`/api/users/${userID}/potlucks`, formValues)
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+    .then(res => {
+        console.log(res);
+        setSubmitResult('Potluck Successfully Created!');
+        history.push('/dash');
+    })
+    .catch(err => {
+        console.log(err);
+        setSubmitResult(`Error: ${err.response.data}`);
+    });
 };
   
   useEffect(() => {
@@ -83,6 +93,7 @@ const CreatePotluck = () => {
 
     return(
         <div>
+            <p>{submitResult}</p>
             <form onSubmit={handleSubmit}>
                 <h1>Create Potluck</h1>
 
