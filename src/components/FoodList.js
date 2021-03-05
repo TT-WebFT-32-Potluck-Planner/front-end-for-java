@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
@@ -9,6 +10,7 @@ const FoodList =  props => {
     const isOrganizer = localStorage.getItem('userID') === potluckData.organizerid.toString();
     const [addItem, setAddItem] = useState({itemname:''});
     const [error, setError] = useState('');
+    const [userList, setUserList] = useState([{userid: 0, username: 'default'}]);
 
     const handleChange = e => {
         setAddItem({itemname: e.target.value});
@@ -55,7 +57,20 @@ const FoodList =  props => {
 
     useEffect(() => {
         getFoodList(potluckid);
+        axios
+          .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/users`)
+          .then(res => {
+              console.log(res.data);
+              setUserList(res.data);
+        })
+          .catch(err => console.log(err.response.data.message));
     },[]);
+
+    const getUser = id => {
+        const user = userList.find(item => item.userid === id)
+        console.log(userList);
+        if(user) {return user.username};
+    };
 
     return (
         <div>
@@ -66,7 +81,7 @@ const FoodList =  props => {
                 </div>
                 <div className='table-column'>
                     <p>Brought By</p>
-                    {foodItems.map(item => <div className='table-cell'>{item.userid || 'available'}</div>)}
+                    {foodItems.map(item => <div className='table-cell'>{getUser(item.userid) ||  'available'}</div>)}
                 </div>
                 <div className='table-column'>
                     <p>Claim Item</p>
