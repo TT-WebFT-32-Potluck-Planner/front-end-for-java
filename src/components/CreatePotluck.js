@@ -73,10 +73,11 @@ const CreatePotluck = () => {
       })
       .catch(err => {
         console.log(err);
-        setSubmitResult(`Error: ${err.response.data}`);
-      });
-  };
 
+        setSubmitResult(`Error: ${err.response.data.message}`);
+    });
+};
+  
   useEffect(() => {
     formSchema.isValid(formValues).then((valid) => {
       setDisabled(!valid);
