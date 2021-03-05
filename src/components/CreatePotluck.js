@@ -4,55 +4,55 @@ import { useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import * as yup from 'yup'; //install yup
 
-const initialValues = { 
-    potluckname: '',
-    date: '',
-    time: '', 
-    location: ''
+const initialValues = {
+  potluckname: '',
+  date: '',
+  time: '',
+  location: ''
 };
 
 
 const CreatePotluck = () => {
-    const [ formValues, setFormValues ] = useState(initialValues);
-    const userID = localStorage.getItem('userID');
-    const history = useHistory();
-    const [submitResult, setSubmitResult] = useState('');
+  const [formValues, setFormValues] = useState(initialValues);
+  const userID = localStorage.getItem('userID');
+  const history = useHistory();
+  const [submitResult, setSubmitResult] = useState('');
 
-    const [errors, setErrors] = useState ({
-        potluckname: '',
-        date: '',
-        time: '',
-        location: '',
-    })
+  const [errors, setErrors] = useState({
+    potluckname: '',
+    date: '',
+    time: '',
+    location: '',
+  })
 
-    const [disabled, setDisabled] = useState(true)
+  const [disabled, setDisabled] = useState(true)
 
-    const formSchema = yup.object().shape({
-        potluckname: yup.string().required ("Add a name for your potluck"),
-        date:yup.string().required ("Add a date for your potluck"),
-        time:yup.string().required ("Add a time for your potluck"),
-        location:yup.string().required ("Add a location for your potluck"),
-    })
+  const formSchema = yup.object().shape({
+    potluckname: yup.string().required("Add a name for your potluck"),
+    date: yup.string().required("Add a date for your potluck"),
+    time: yup.string().required("Add a time for your potluck"),
+    location: yup.string().required("Add a location for your potluck"),
+  })
 
-    const changeHandler = (name , value) => {
-        yup
-        .reach(formSchema, name)
-        .validate(value)
-        .then ((valid) => {
-            setErrors({
-            ...errors,
-            [name]: "",
+  const changeHandler = (name, value) => {
+    yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then((valid) => {
+        setErrors({
+          ...errors,
+          [name]: "",
         });
-    })
-    .catch((err) => {
-        setErrors ({
-            ...errors,
-            [name]: err.errors[0],
+      })
+      .catch((err) => {
+        setErrors({
+          ...errors,
+          [name]: err.errors[0],
         });
-    });
+      });
     setFormValues({
-        ...formValues,
-        [name] : value,
+      ...formValues,
+      [name]: value,
     });
   };
 
@@ -65,18 +65,18 @@ const CreatePotluck = () => {
   const handleSubmit = e => {
     e.preventDefault();
     axiosWithAuth()
-    .post(`/api/users/${userID}/potlucks`, formValues)
-    .then(res => {
+      .post(`/api/users/${userID}/potlucks`, formValues)
+      .then(res => {
         console.log(res);
         setSubmitResult('Potluck Successfully Created!');
         history.push('/dash');
-    })
-    .catch(err => {
+      })
+      .catch(err => {
         console.log(err);
         setSubmitResult(`Error: ${err.response.data}`);
-    });
-};
-  
+      });
+  };
+
   useEffect(() => {
     formSchema.isValid(formValues).then((valid) => {
       setDisabled(!valid);
@@ -85,49 +85,69 @@ const CreatePotluck = () => {
 
 
 
-    // const handleChange = e => {
-    //     const { name, value } = e.target;
-    //     setFormValues({...formValues, [name]: value});
-    // };
+  // const handleChange = e => {
+  //     const { name, value } = e.target;
+  //     setFormValues({...formValues, [name]: value});
+  // };
 
 
-    return(
-        <div>
-            <p>{submitResult}</p>
-            <form onSubmit={handleSubmit}>
-                <h1>Create Potluck</h1>
+  return (
+    <div className='potluck-form-container'>
+      <p>{submitResult}</p>
+      <form className='potluck-form' onSubmit={handleSubmit}>
+        <h1>Create Potluck</h1>
 
-                <div> {errors.potluckname} </div>
+        <div> {errors.potluckname} </div>
 
-                <label>
-                    Potluck Name
-                    <input type='text' name='potluckname' value={formValues.potluckname} onChange={change} />
-                </label>
+        <input
+          type='text'
+          name='potluckname'
+          value={formValues.potluckname}
+          onChange={change}
+          placeholder='Potluck name'
+          autoComplete='off'
+        />
 
-                <div> {errors.date} </div>
+        <div> {errors.date} </div>
 
-                <label>
-                    Date
-                    <input type='text' name='date' value={formValues.date} onChange={change}/>
-                </label>
 
-                <div> {errors.time} </div>
+        <input
+          type='text'
+          name='date'
+          value={formValues.date}
+          onChange={change}
+          placeholder='Date'
+          autoComplete='off'
+        />
 
-                <label>
-                    Time
-                    <input type='text' name='time' value={formValues.time} onChange={change}/>
-                </label>
 
-                <div> {errors.location} </div>
+        <div> {errors.time} </div>
 
-                <label>
-                    Location 
-                    <input type='text' name='location' value={formValues.location} onChange={change}/>
-                </label>
-                <button disabled = {disabled}>Submit</button>
-            </form>
-        </div>
-    )
+        <input
+          type='text'
+          name='time'
+          value={formValues.time}
+          onChange={change}
+          placeholder='Time'
+          autoComplete='off'
+        />
+
+
+        <div> {errors.location} </div>
+
+        <input
+          type='text'
+          name='location'
+          value={formValues.location}
+          onChange={change}
+          placeholder='Location'
+          autoComplete='off'
+        />
+
+        <button disabled={disabled}>Submit</button>
+      </form>
+    </div>
+  )
 };
 
 export default CreatePotluck;
