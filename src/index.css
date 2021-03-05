@@ -342,3 +342,62 @@ main {
 #username {
   color: red;
 }
+
+/* Create Potluck Form */
+.potluck-form-container {
+  text-align: center;
+  border: 1px solid red;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.2rem;
+  background: linear-gradient(
+    to right bottom,
+    #f77f00,
+    #fcbf49
+);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.potluck-form {
+  background-color: white;
+  width: 40%;
+  height: 60vh;
+  margin-bottom: 3rem;
+  border-radius: 15px;
+  background: linear-gradient(
+    to right bottom,
+  rgba(255, 255, 255, .7),
+  rgba(255, 255, 255, .3)
+  );
+}
+
+.potluck-form input {
+  margin-bottom: 1rem;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.potluck-form button {
+  margin-bottom: 1rem;
+  display: block;
+  position: relative;
+  left: 42%;
+  background-color: dodgerblue;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+}
+
+.potluck-form button:hover {
+  cursor: pointer;
+}
+
+.potluck-form h1 {
+  margin-top: 6rem;
+  margin-bottom: 1.5rem;
+  text-decoration: underline 5px dodgerblue;
+}
