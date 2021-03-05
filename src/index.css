@@ -55,10 +55,16 @@ nav {
 }
 
 a {
-  font-size: 1.2rem;
-  padding: 1.2rem;
+  font-size: 1.3rem;
+  padding: 1.3rem;
   text-decoration: none;
   color: white;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+a:hover {
+  background-color: white;
+  color: #d62828;
 }
 
 /* Home */
