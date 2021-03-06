@@ -18,7 +18,7 @@ const PotluckCard = () => {
   const [potluckData, setPotluckData] = useState(dummyData);
   const { potluckid } = useParams();
   const [invite, setInvite] = useState('')
-  const isOrganizer = localStorage.getItem('userID') === potluckData.user.userid;
+  const [isOrganizer, setIsOrganizer] = useState(false);
   const [edit, setEdit] = useState(false)
 
   const getPotluckData = () => {
@@ -26,7 +26,6 @@ const PotluckCard = () => {
       .get(`/api/potlucks/potluckid/${potluckid}`)
       .then(res => {
         setPotluckData(res.data)
-        console.log(res.data);
       })
       .catch(err => console.log(err.response.data));
   };
@@ -36,7 +35,7 @@ const PotluckCard = () => {
     .get(`/api/potlucks/potluckid/${potluckid}`)
     .then(res => {
       setPotluckData(res.data)
-      console.log(res.data);
+      setIsOrganizer(localStorage.getItem('userID') === res.data.user.userid.toString())
     })
     .catch(err => console.log(err));
   }, [potluckid]);
@@ -86,7 +85,7 @@ const PotluckCard = () => {
 
             {
               invite !== '' ?
-                <textarea id='invite'>{invite}</textarea> :
+                <textarea id='invite' value={invite} /> :
                 null
             }
 

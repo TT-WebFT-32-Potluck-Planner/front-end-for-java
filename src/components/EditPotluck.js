@@ -16,13 +16,11 @@ const EditPotluck = props => {
         setFormValues({...formValues, [name]: value});
     };
 
-    //checked by leah - good
     const handleSubmit = e => {
         e.preventDefault();
         axiosWithAuth()
-        .put(`/api/users/${userID}/potlucks/${potluckid}`, { time: formValues.time, date: formValues.date, location: formValues.location })
+        .put(`/api/users/${userID}/potlucks/${potluckid}`, { potluckname: potluckData.potluckname, time: formValues.time, date: formValues.date, location: formValues.location})
         .then(res => {
-            console.log(res);
             getPotluckData();
             toggleEdit(e);
         })

@@ -68,13 +68,10 @@ const CreatePotluck = () => {
     axiosWithAuth()
       .post(`/api/users/${userID}/potlucks`, formValues)
       .then(res => {
-        console.log(res);
         setSubmitResult('Potluck Successfully Created!');
         history.push('/dash');
       })
       .catch(err => {
-        console.log(err);
-
         setSubmitResult(`Error: ${err.response.data.message}`);
     });
 };

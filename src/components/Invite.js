@@ -33,9 +33,7 @@ const Invite = () => {
     },[potluckid]);
 
     useEffect(() => {
-        const attendees = (potluckData.attendees.map(attendee => attendee.attendee));
-        console.log('host: ', userID === potluckData.user.userid)
-        console.log('attending: ', attendees.includes(userID));
+        const attendees = (potluckData.attendees.map(attendee => attendee.attendee.userid));
         setHostOrAttendee({
             host: userID === potluckData.user.userid,
             attending: attendees.includes(userID)

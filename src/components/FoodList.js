@@ -20,7 +20,6 @@ const FoodList =  props => {
         axiosWithAuth()
         .get(`/api/users/${userID}/potlucks/${id}/items`)
         .then(res => {
-            console.log('food list response', res.data);
             setFoodItems(res.data);
         })
         .catch(err => console.log(err));
@@ -32,7 +31,6 @@ const FoodList =  props => {
         axiosWithAuth()
             .post(`/api/users/${userID}/potlucks/${potluckid}/items`, addItem)
             .then(res => {
-                console.log(res);
                 getFoodList(potluckid);
                 setAddItem({itemname:''});
             })
@@ -62,12 +60,10 @@ const FoodList =  props => {
     //checked by leah - good
     useEffect(() => {
         setUserID(parseInt(localStorage.getItem('userID'), 10));
-        console.log('potluckdata', potluckData);
         getFoodList(potluckid);
         axiosWithAuth()
           .get(`/api/auth/users`)
           .then(res => {
-              console.log(res.data);
         })
           .catch(err => console.log(err.response.data.message));
     },[potluckid, potluckData]);
@@ -78,19 +74,19 @@ const FoodList =  props => {
             <div className='food-table'>
                 <div className='table-column'>
                     <p>Food Item</p>
-                    {foodItems.map(item => <div className='table-cell'>{item.itemname}</div>)}
+                    {foodItems.map(item => <div className='table-cell' key={item.itemid}>{item.itemname}</div>)}
                 </div>
                 <div className='table-column'>
                     <p>Brought By</p>
                     {foodItems.map(item => 
-                        <div className='table-cell'>
+                        <div className='table-cell' key={item.itemid}>
                             {item.user ? item.user.username : 'available'}
                         </div>)}
                 </div>
                 <div className='table-column'>
                     <p>Claim Item</p>
                     {foodItems.map(item => 
-                        <div className='table-cell'>
+                        <div className='table-cell' key={item.itemid}>
                             {item.user
                                 ? 'Claimed!'
                                 : <button id={item.itemid} onClick={claimFood}>Reserve</button>}

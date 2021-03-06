@@ -2,7 +2,6 @@ import { axiosWithAuth } from '../utils/axiosWithAuth'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-const log = console.log;
 const Dashboard = () => {
   const [potlucks, setPotlucks] = useState([]);
   const [orgPotlucks, setOrgPotlucks] = useState([]);
@@ -13,20 +12,17 @@ const Dashboard = () => {
     axiosWithAuth()
       .get(`api/users/${userID}/potlucks/attending`)
       .then(res => {
-        log('API Data:', res.data)
-
         setPotlucks(res.data)
       })
-      .catch(err => log(err));
+      .catch(err => console.log(err));
 
       //checked by leah - good
     axiosWithAuth()
       .get(`api/users/${userID}/potlucks`)
       .then(res => {
-        log('Created Potluck Data: ', res.data)
         setOrgPotlucks(res.data);
       })
-      .catch(err => log(err));
+      .catch(err => console.log(err));
   }, [])
 
   const history = useHistory();
@@ -43,8 +39,6 @@ const Dashboard = () => {
   return (
     <div className='dashboard'>
       <h1>Dashboard</h1>
-
-      {log('Potluck State:', potlucks)}
 
       <div className='dashboard'>
 

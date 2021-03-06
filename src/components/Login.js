@@ -23,7 +23,6 @@ const Login = () => {
   //useEffect to set userid in localstorage once the user is logged in
   useEffect(() => {
     if (localStorage.getItem('token') !== null) {
-      console.log('hey, the useEffect is running.')
       axiosWithAuth()
         .get('/users/getuserinfo')
         .then(res => {
@@ -69,7 +68,6 @@ const Login = () => {
       
       )
       .then(res => {
-        console.log('Login Post Response', res)
 
         const token = res.data.access_token;
         localStorage.setItem('token', token);

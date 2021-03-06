@@ -93,10 +93,8 @@ const Signup = () => {
       .post('https://my-potluck-planner.herokuapp.com/api/register', formValues)
       .then(res => {
 
-        console.log('Status Code:', res.status)
         setSignupSuccess(true)
         setUsername(formValues.username)
-        console.log('Entire response', res)
 
         const userID = res.data.userid
         localStorage.setItem('userID', userID)
@@ -105,10 +103,6 @@ const Signup = () => {
       })
       .catch(err => console.log('Failure:', err))
     
-    // axiosWithAuth()
-    //   .get('/users/getuserinfo')
-    //   .then(res => console.log('User data', res))
-    //   .catch()
   }
 
 
