@@ -1,46 +1,48 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import FoodList from '../components/FoodList'
 import EditPotluck from './EditPotluck';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const dummyData = {
-  name: 'Jorge\'s Mars Sendoff Brunch',
-  date: '04/24/2041',
-  location: 'Earth',
-  time: '12:00pm',
-  claimedFood: [
-    'Fettuccine Alfredo',
-    'Grilled Chicken Sliders',
-    'Turkey Pasta Casserole',
-    'Applepie',
-    'Raspberry Swirl Rolls',
-    'Chocolate Cake'
-  ],
-  organizerid: ''
+  name: '',
+  date: '',
+  location: '',
+  time: '',
+  items: [],
+  user: ''
 }
 
 const PotluckCard = () => {
   const [potluckData, setPotluckData] = useState(dummyData);
   const { potluckid } = useParams();
   const [invite, setInvite] = useState('')
-  const isOrganizer = localStorage.getItem('userID') === potluckData.organizerid.toString()
+  const isOrganizer = localStorage.getItem('userID') === potluckData.user.userid;
   const [edit, setEdit] = useState(false)
 
   const getPotluckData = () => {
-    axios
-      .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks/${potluckid}`)
-      .then(res => setPotluckData(res.data))
+    axiosWithAuth()
+      .get(`/api/potlucks/potluckid/${potluckid}`)
+      .then(res => {
+        setPotluckData(res.data)
+        console.log(res.data);
+      })
       .catch(err => console.log(err.response.data));
   };
 
   useEffect(() => {
-    getPotluckData();
-  }, []);
+    axiosWithAuth()
+    .get(`/api/potlucks/potluckid/${potluckid}`)
+    .then(res => {
+      setPotluckData(res.data)
+      console.log(res.data);
+    })
+    .catch(err => console.log(err));
+  }, [potluckid]);
 
   const getLink = () => {
-    const fullURL = window.location.href;
-    const baseURL = fullURL.substring(0, fullURL.length - 11)
+    const baseURL = window.location.origin;
     return setInvite(`${baseURL}/invite/${potluckid}`)
   }
 
@@ -72,6 +74,7 @@ const PotluckCard = () => {
                 <p><span>Location:</span> {potluckData.location}</p>
                 <p><span>Date:</span> {potluckData.date}</p>
                 <p><span>Time:</span> {potluckData.time}</p>
+                <p><span>Hosted By:</span> {potluckData.user.username}</p>
                 {isOrganizer ? <button onClick={toggleEdit}>Edit Details</button> : ''}
               </>
             }

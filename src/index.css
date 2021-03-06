@@ -118,14 +118,19 @@ h1 {
   margin-top: 1rem;
 }
 
-.form-container a {
+.form-container .cta {
+  font-size: 1.3rem;
+  padding: 1.3rem;
+  text-decoration: none;
+  color: white;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #fcbf49;
   padding: 2px;
   border: 1px solid #fcbf49;
   border-radius: 2px;
 }
 
-.form-container a:hover {
+.form-container .cta:hover {
   background-color: white;
   color: #fcbf49;
 }
@@ -290,13 +295,14 @@ main {
   padding: 95px 0;
 }
 
-.food-items a {
+.food-items button {
   background-color: red;
   color: white;
   padding: 2px;
   font-size: 0.75rem;
   border: solid red 1px;
   border-radius: 5px;
+  margin: 0;
 }
 
 .food-items a:hover {

@@ -62,6 +62,7 @@ const CreatePotluck = () => {
     changeHandler(name, value);
   };
 
+  //checked by leah - good
   const handleSubmit = e => {
     e.preventDefault();
     axiosWithAuth()

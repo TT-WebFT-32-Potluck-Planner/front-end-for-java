@@ -1,38 +1,40 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-const demoList = [{ itemname: 'Macaroni' },{ itemname: 'Burgers'},{ itemname: 'Potato Salad'}];
+// const demoList = [{ itemname: 'Macaroni' },{ itemname: 'Burgers'},{ itemname: 'Potato Salad'}];
+
 const FoodList =  props => {
 
-    const [foodItems, setFoodItems] = useState(demoList);
+    const [foodItems, setFoodItems] = useState([]);
     const { potluckid, potluckData } = props;
-    const isOrganizer = localStorage.getItem('userID') === potluckData.organizerid.toString();
     const [addItem, setAddItem] = useState({itemname:''});
     const [error, setError] = useState('');
-    const [userList, setUserList] = useState([{userid: 0, username: 'default'}]);
+    const [userID, setUserID] = useState('');
 
     const handleChange = e => {
         setAddItem({itemname: e.target.value});
     };
 
+    //checked by leah - good
     const getFoodList = id => {
         axiosWithAuth()
-        .get(`/api/potlucks/${id}/items`)
+        .get(`/api/users/${userID}/potlucks/${id}/items`)
         .then(res => {
-            console.log(res.data);
+            console.log('food list response', res.data);
             setFoodItems(res.data);
         })
         .catch(err => console.log(err));
     };
     
+    //checked by leah - good
     const addFood = e => {
         e.preventDefault();
         axiosWithAuth()
-            .post(`/api/potlucks/${potluckid}/items`, addItem)
+            .post(`/api/users/${userID}/potlucks/${potluckid}/items`, addItem)
             .then(res => {
                 console.log(res);
                 getFoodList(potluckid);
+                setAddItem({itemname:''});
             })
             .catch(err => {
                 console.log(err.response.data);
@@ -40,37 +42,36 @@ const FoodList =  props => {
             });
     };
 
+    // checked by leah - good
     const removeFood = e => {
         e.preventDefault();
         axiosWithAuth()
-            .delete(`api/potlucks/${potluckid}/items/${e.target.id}`)
+            .delete(`api/users/${userID}/potlucks/${potluckid}/items/${e.target.id}`)
             .then(res => {getFoodList(potluckid)})
             .catch(err => console.log(err.response.data));
     };
 
+    //checked by leah - good
     const claimFood = e => {
         axiosWithAuth()
-          .put(`api/potlucks/${potluckid}/items/${e.target.id}`, {'userid': localStorage.getItem('userID')})
+          .patch(`api/potlucks/${potluckid}/items/${e.target.id}`)
           .then(res => {getFoodList(potluckid)})
           .catch(err => console.log(err.response.data));
     };
 
+    //checked by leah - good
     useEffect(() => {
+        setUserID(parseInt(localStorage.getItem('userID'), 10));
+        console.log('potluckdata', potluckData);
         getFoodList(potluckid);
-        axios
-          .get(`https://tt-webft-32-potluck-planner.herokuapp.com/api/users`)
+        axiosWithAuth()
+          .get(`/api/auth/users`)
           .then(res => {
               console.log(res.data);
-              setUserList(res.data);
         })
           .catch(err => console.log(err.response.data.message));
-    },[]);
+    },[potluckid, potluckData]);
 
-    const getUser = id => {
-        const user = userList.find(item => item.userid === id)
-        console.log(userList);
-        if(user) {return user.username};
-    };
 
     return (
         <div>
@@ -81,25 +82,44 @@ const FoodList =  props => {
                 </div>
                 <div className='table-column'>
                     <p>Brought By</p>
-                    {foodItems.map(item => <div className='table-cell'>{getUser(item.userid) ||  'available'}</div>)}
+                    {foodItems.map(item => 
+                        <div className='table-cell'>
+                            {item.user ? item.user.username : 'available'}
+                        </div>)}
                 </div>
                 <div className='table-column'>
                     <p>Claim Item</p>
-                    {foodItems.map(item => <div className='table-cell'>{item.userid ? <br/> : <a id={item.itemid} onClick={claimFood}>Reserve</a>}</div>)}
+                    {foodItems.map(item => 
+                        <div className='table-cell'>
+                            {item.user
+                                ? 'Claimed!'
+                                : <button id={item.itemid} onClick={claimFood}>Reserve</button>}
+                        </div>)
+                    }
                 </div>
-                {isOrganizer ? 
-                <div className='table-column'>
-                    <p>Remove?</p>
-                    {foodItems.map(item => <div className='table-cell'><a onClick={removeFood} id={item.itemid}>Remove</a></div>)}
-                </div>
-                 : ''}
+                { userID === potluckData.user.userid
+                    ? <div className='table-column'>
+                        <p>Remove?</p>
+                        {foodItems.map(item => 
+                        <div className='table-cell'>
+                            <button onClick={removeFood} id={item.itemid}>
+                                Remove
+                            </button>
+                        </div>)}
+                    </div>
+                    : ''
+                }
             </div>
-            { isOrganizer? 
-            <div>
-            <button onClick={addFood}>Add Food Item</button>
+            { userID === potluckData.user.userid
+            ? <div>
+                <button onClick={addFood}>
+                    Add Food Item
+                </button>
             <input type='text' name='foodItem' onChange={handleChange} value={addItem.itemname}/>
             <p>{error}</p>
-            </div> : ''
+            </div> 
+            : 
+            ''
             }
         </div>
     )

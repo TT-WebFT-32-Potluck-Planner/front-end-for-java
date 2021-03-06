@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 
+const userID = localStorage.getItem('userID');
+
 const EditPotluck = props => {
     const [ formValues, setFormValues ] = useState({});
     const { potluckid, potluckData, toggleEdit, getPotluckData } = props;
 
     useEffect(() => {
         setFormValues(potluckData);
-    },[]);
+    },[potluckData]);
 
     const handleChange = e => {
         const { name, value } = e.target;
         setFormValues({...formValues, [name]: value});
     };
 
+    //checked by leah - good
     const handleSubmit = e => {
         e.preventDefault();
         axiosWithAuth()
-        .put(`/api/potlucks/${potluckid}`, { time: formValues.time, date: formValues.date, location: formValues.location })
+        .put(`/api/users/${userID}/potlucks/${potluckid}`, { time: formValues.time, date: formValues.date, location: formValues.location })
         .then(res => {
             console.log(res);
             getPotluckData();

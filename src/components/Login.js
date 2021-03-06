@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const initialFormValues = {
   username: '',
@@ -18,6 +19,21 @@ const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const history = useHistory();
 
+
+  //useEffect to set userid in localstorage once the user is logged in
+  useEffect(() => {
+    if (localStorage.getItem('token') !== null) {
+      console.log('hey, the useEffect is running.')
+      axiosWithAuth()
+        .get('/users/getuserinfo')
+        .then(res => {
+          const userID = res.data.userid;
+          localStorage.setItem('userID', userID);
+          history.push('/dash');
+        })
+        .catch(err => console.log(err))
+    }
+  }, [history, successMessage])
 
   // onChange Handler
   const change = evt => {
@@ -41,18 +57,24 @@ const Login = () => {
     evt.preventDefault()
 
     axios
-      .post('https://tt-webft-32-potluck-planner.herokuapp.com/api/auth/login', formValues)
+      .post('https://my-potluck-planner.herokuapp.com/api/login', 
+        `grant_type=password&username=${formValues.username}&password=${formValues.password}`,
+        {
+          headers: {
+            // btoa is converting our client id/client secret into base64
+            Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        },
+      
+      )
       .then(res => {
         console.log('Login Post Response', res)
 
-        const token = res.data.token;
-        const userID = res.data.user.userid;
+        const token = res.data.access_token;
         localStorage.setItem('token', token);
-        localStorage.setItem('userID', userID);
         setErrorMessage('');
-        setSuccessMessage(res.data.message)
-
-        history.push('/dash')
+        setSuccessMessage('Welcome back')
       })
       .catch(err => {
         console.log(err);
@@ -60,23 +82,24 @@ const Login = () => {
       })
   }
 
-  const logout = e => {
-    e.preventDefault();
-    localStorage.removeItem('token');
-    localStorage.removeItem('userID');
-    setSuccessMessage('');
-    history.push('/login');
-  };
+
+  // const logout = e => {
+  //   e.preventDefault();
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('userID');
+  //   setSuccessMessage('');
+  //   history.push('/login');
+  // };
 
   const routeToSignUp = e => {
     e.preventDefault();
     history.push('/signup');
   };
 
-  const routeToDashboard = e => {
-    e.preventDefault();
-    history.push('/dash');
-  };
+  // const routeToDashboard = e => {
+  //   e.preventDefault();
+  //   history.push('/dash');
+  // };
 
   // JSX
   return (
@@ -112,19 +135,12 @@ const Login = () => {
           </form>
           <p className='error'>{errorMessage}</p>
           <br />
-          <p>Don't have an account? <a onClick={routeToSignUp}>sign up!</a></p>
+          <p>Don't have an account? <button className="cta" onClick={routeToSignUp}>sign up!</button></p>
         </div>
       }
 
 
       {successMessage !== '' ? <p id='login-success'>{successMessage}</p> : ''}
-
-      {localStorage.getItem('token') ?
-        <div>
-          <button onClick={routeToDashboard}>Go to Dashboard</button>
-          <button onClick={logout}>Logout</button>
-        </div> : ''
-      }
 
     </div >
   )
