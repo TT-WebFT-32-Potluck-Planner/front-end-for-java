@@ -25,7 +25,6 @@ const FoodList =  props => {
         .catch(err => console.log(err));
     };
     
-    //checked by leah - good
     const addFood = e => {
         e.preventDefault();
         axiosWithAuth()
@@ -40,7 +39,6 @@ const FoodList =  props => {
             });
     };
 
-    // checked by leah - good
     const removeFood = e => {
         e.preventDefault();
         axiosWithAuth()
@@ -49,7 +47,6 @@ const FoodList =  props => {
             .catch(err => console.log(err.response.data));
     };
 
-    //checked by leah - good
     const claimFood = e => {
         axiosWithAuth()
           .patch(`api/potlucks/${potluckid}/items/${e.target.id}`)
@@ -57,15 +54,9 @@ const FoodList =  props => {
           .catch(err => console.log(err.response.data));
     };
 
-    //checked by leah - good
     useEffect(() => {
         setUserID(parseInt(localStorage.getItem('userID'), 10));
         getFoodList(potluckid);
-        axiosWithAuth()
-          .get(`/api/auth/users`)
-          .then(res => {
-        })
-          .catch(err => console.log(err.response.data.message));
     },[potluckid, potluckData]);
 
 
@@ -89,7 +80,7 @@ const FoodList =  props => {
                         <div className='table-cell' key={item.itemid}>
                             {item.user
                                 ? 'Claimed!'
-                                : <button id={item.itemid} onClick={claimFood}>Reserve</button>}
+                                : <button className="little-button" id={item.itemid} onClick={claimFood}>Reserve</button>}
                         </div>)
                     }
                 </div>
@@ -98,7 +89,7 @@ const FoodList =  props => {
                         <p>Remove?</p>
                         {foodItems.map(item => 
                         <div className='table-cell'>
-                            <button onClick={removeFood} id={item.itemid}>
+                            <button  className="little-button" onClick={removeFood} id={item.itemid}>
                                 Remove
                             </button>
                         </div>)}

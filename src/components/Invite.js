@@ -21,7 +21,6 @@ const Invite = () => {
     const [hostOrAttendee, setHostOrAttendee] = useState({host: false, attending: false});
 
     useEffect(() => {
-        //checked by leah, good
         setUserID(parseInt(localStorage.getItem('userID'), 10));
         axios
             .get(`https://my-potluck-planner.herokuapp.com/api/potlucks/potluckid/${potluckid}`)
@@ -63,35 +62,37 @@ const Invite = () => {
     };
 
     return (
-        <div>
+        <div className="invite-container">
             <h1>Join my Potluck!</h1>
             <div className='invitation'>
                 <p>What?: {potluckData.potluckname}</p>
                 <p>When?: {potluckData.date}, {potluckData.time}</p>
                 <p>Where?: {potluckData.location}</p>
                 <p>Hosted by {potluckData.user.username}</p>
-                {
-                    hostOrAttendee.host
-                    ? <h3>You are the organizer of this potluck!</h3>
-                    : ''
-                }
-                {
-                    hostOrAttendee.attending
-                    ? <h3>You already rsvp'd for this potluck!</h3>
-                    : ''
-                }
+                <div className="rsvp">
+                    {
+                        hostOrAttendee.host
+                        ? <h3>You are the organizer of this potluck!</h3>
+                        : ''
+                    }
+                    {
+                        hostOrAttendee.attending
+                        ? <h3>You already rsvp'd for this potluck!</h3>
+                        : ''
+                    }
 
-                {(!success && !hostOrAttendee.host && !hostOrAttendee.attending)
-                    ? <button onClick={rsvp}>RSVP</button>
-                    : ''
-                }
-                {success || (!hostOrAttendee.host || !hostOrAttendee.attending)
-                    ? <>
-                        <button onClick={routeToDashboard}>Go To Dashboard</button>
-                        <button onClick={routeToPotluck}>Go To Potluck</button>
-                    </>
-                    : ''
-                }
+                    {(!success && !hostOrAttendee.host && !hostOrAttendee.attending)
+                        ? <button onClick={rsvp}>RSVP</button>
+                        : ''
+                    }
+                    {success || (!hostOrAttendee.host || !hostOrAttendee.attending)
+                        ? <>
+                            <button onClick={routeToDashboard}>Go To Dashboard</button>
+                            <button onClick={routeToPotluck}>Go To Potluck</button>
+                        </>
+                        : ''
+                    }
+                </div>
                 <div>
                     {success}
                 </div>
@@ -101,23 +102,6 @@ const Invite = () => {
         </div>
 
     )
-        // } else {
-    
-        //     return (
-        //         <div>
-        //             <h1>Join my Potluck!</h1>
-        //             <div className='invitation'>
-        //                 <p>What?: {potluckData.potluckname}</p>
-        //                 <p>When?: {potluckData.date}, {potluckData.time}</p>
-        //                 <p>Where?: {potluckData.location}</p>
-        //                 <p>Hosted by {potluckData.user.username}</p>
-        //                 {success || <button onClick={rsvp}>RSVP</button>}
-        //                 {success && <button onClick={routeToDashboard}>Go To Dashboard</button>}
-        //                 {success && <button onClick={routeToPotluck}>Go To Potluck</button>}
-        //             </div>
-        //         </div>
-        //     )
-        // }
         
 }
 
