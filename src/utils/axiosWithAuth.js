@@ -1,13 +1,14 @@
 //Authroized copy of axios that pases login token in headers
+
 import axios from 'axios';
 
 export const axiosWithAuth = () => {
-    const token = localStorage.getItem('token');
-    console.log('Token: ', token);
+    const token = window.localStorage.getItem('token');
+
     return axios.create({
         headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
          },
-         baseURL: 'https://tt-webft-32-potluck-planner.herokuapp.com'
+         baseURL: 'https://my-potluck-planner.herokuapp.com'
     });
 };

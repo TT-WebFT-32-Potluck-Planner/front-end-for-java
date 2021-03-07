@@ -90,14 +90,11 @@ const Signup = () => {
     evt.preventDefault()
 
     axios
-      .post('https://tt-webft-32-potluck-planner.herokuapp.com/api/auth/register', formValues)
+      .post('https://my-potluck-planner.herokuapp.com/api/register', formValues)
       .then(res => {
-        console.log('All backend data', res)
-
-        console.log('Status Code:', res.status)
 
         setSignupSuccess(true)
-        setUsername(res.data.username)
+        setUsername(formValues.username)
 
         const userID = res.data.userid
         localStorage.setItem('userID', userID)
@@ -105,6 +102,7 @@ const Signup = () => {
         setFormValues(initialFormValues);
       })
       .catch(err => console.log('Failure:', err))
+    
   }
 
 
@@ -150,7 +148,7 @@ const Signup = () => {
       }
 
       <br />
-      <p>Already have an account? <a onClick={routeToLogin}>Log In!</a></p>
+      <p>Already have an account? <button className="cta" onClick={routeToLogin}>Log In!</button></p>
 
     </div>
   )

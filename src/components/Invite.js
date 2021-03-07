@@ -8,34 +8,36 @@ const initalData = {
     date: '',
     time: '',
     location: '',
-    organizerid: ''
+    user: '',
+    attendees: []
 };
 
 const Invite = () => {
     const { potluckid } = useParams();
-    const userID = localStorage.getItem('userID');
+    const [userID, setUserID] = useState('');
     const [potluckData, setPotluckData] = useState(initalData);
     const history = useHistory();
     const [success, setSuccess] = useState('');
-    const [attendees, setAttendees] = useState([]);
-    const potluckURL = `https://tt-webft-32-potluck-planner.herokuapp.com/api/potlucks/${potluckid}`
+    const [hostOrAttendee, setHostOrAttendee] = useState({host: false, attending: false});
 
     useEffect(() => {
+        setUserID(parseInt(localStorage.getItem('userID'), 10));
         axios
-            .get(potluckURL)
+            .get(`https://my-potluck-planner.herokuapp.com/api/potlucks/potluckid/${potluckid}`)
             .then(res => {
-                console.log(res.data);
                 setPotluckData(res.data);
             })
             .catch(err => console.log(err));
-        axios
-            .get(`${potluckURL}/attendees`)
-            .then(res => {
-                console.log(res.data);
-                setAttendees(res.data.map(attendee => attendee.userid.toString()));
-            })
-            .catch(err => console.log(err));
-    },[]);
+
+    },[potluckid]);
+
+    useEffect(() => {
+        const attendees = (potluckData.attendees.map(attendee => attendee.attendee.userid));
+        setHostOrAttendee({
+            host: userID === potluckData.user.userid,
+            attending: attendees.includes(userID)
+        })
+    }, [potluckData, userID])
 
     const rsvp = e => {
         e.preventDefault();
@@ -59,34 +61,48 @@ const Invite = () => {
         history.push(`/potluck/${potluckid}`)
     };
 
-    if (attendees.includes(userID)) {
-        return (<div>
-            <h3>You have already RSVP'd for this potluck!</h3>
-            <button onClick={routeToPotluck}>Go To Potluck</button>
-        </div>)
-    }
-
-    if (localStorage.getItem('userID') === potluckData.organizerid.toString()) {
-        return (<div>
-            <h3>You are the organizer of this potluck!</h3>
-            <button onClick={routeToPotluck}>Go To Potluck</button>
-        </div>)
-    }
-
     return (
-        <div>
+        <div className="invite-container">
             <h1>Join my Potluck!</h1>
             <div className='invitation'>
                 <p>What?: {potluckData.potluckname}</p>
                 <p>When?: {potluckData.date}, {potluckData.time}</p>
                 <p>Where?: {potluckData.location}</p>
-                <p>Hosted by {potluckData.organizer}</p>
-                {success || <button onClick={rsvp}>RSVP</button>}
-                {success && <button onClick={routeToDashboard}>Go To Dashboard</button>}
-                {success && <button onClick={routeToPotluck}>Go To Potluck</button>}
+                <p>Hosted by {potluckData.user.username}</p>
+                <div className="rsvp">
+                    {
+                        hostOrAttendee.host
+                        ? <h3>You are the organizer of this potluck!</h3>
+                        : ''
+                    }
+                    {
+                        hostOrAttendee.attending
+                        ? <h3>You already rsvp'd for this potluck!</h3>
+                        : ''
+                    }
+
+                    {(!success && !hostOrAttendee.host && !hostOrAttendee.attending)
+                        ? <button onClick={rsvp}>RSVP</button>
+                        : ''
+                    }
+                    {success || (!hostOrAttendee.host || !hostOrAttendee.attending)
+                        ? <>
+                            <button onClick={routeToDashboard}>Go To Dashboard</button>
+                            <button onClick={routeToPotluck}>Go To Potluck</button>
+                        </>
+                        : ''
+                    }
+                </div>
+                <div>
+                    {success}
+                </div>
+
+
             </div>
         </div>
+
     )
+        
 }
 
 export default Invite;

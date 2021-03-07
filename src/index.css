@@ -118,14 +118,19 @@ h1 {
   margin-top: 1rem;
 }
 
-.form-container a {
+.form-container .cta {
+  font-size: 1.3rem;
+  padding: 1.3rem;
+  text-decoration: none;
+  color: white;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #fcbf49;
   padding: 2px;
   border: 1px solid #fcbf49;
   border-radius: 2px;
 }
 
-.form-container a:hover {
+.form-container .cta:hover {
   background-color: white;
   color: #fcbf49;
 }
@@ -210,8 +215,9 @@ main {
 
 .card {
   background: white;
-  min-height: 70vh;
+  /* min-height: 70vh; */
   width: 40%;
+  min-width: 320px;
   position: relative;
   bottom: 1rem;
   background: linear-gradient(
@@ -220,6 +226,9 @@ main {
     rgba(255, 255, 255, .3));
   border-radius: 2rem;
   text-align: center;
+  margin-top: 30px;
+  margin-bottom: 100px;
+  padding-bottom: 30px;
 }
 
 .food-items button {
@@ -235,24 +244,24 @@ main {
   display: block;
   margin: 0 auto;
   margin-top: 1rem;
-  margin-bottom: 1rem;
   color: blue;
   text-align: center;
 }
 
 #copy {
   display: block;
-  margin: 0 auto;
+  margin: .5rem auto 0 auto;
   background-color: royalblue;
   border-radius: 6px;
-  padding: .4rem;
+  padding: .2rem;
+  font-size: .8rem;
 }
 
 .food-items {
   text-align: center;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
-  bottom: 3rem;
+  padding: 0;
 }
 
 .card h1 {
@@ -286,17 +295,14 @@ main {
   margin-top: 0.5rem;
 }
 
-.food-items {
-  padding: 95px 0;
-}
-
-.food-items a {
+.food-items button.little-button {
   background-color: red;
   color: white;
   padding: 2px;
   font-size: 0.75rem;
   border: solid red 1px;
   border-radius: 5px;
+  margin: 0;
 }
 
 .food-items a:hover {
@@ -406,4 +412,36 @@ main {
   margin-top: 6rem;
   margin-bottom: 1.5rem;
   text-decoration: underline 5px dodgerblue;
+}
+/* Invite container */
+.invite-container {
+  min-height: 100vh;
+  background: linear-gradient(to right top, #f77f00, #fcbf49);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.invite-container h1 {
+  width: 100%;
+}
+.invitation {
+  width: 500px;
+  max-width: 90%;
+  min-height: 50vh;
+  border: none;
+  border-radius: 2rem;
+  background: linear-gradient( to right bottom, rgba(255, 255, 255, .7), rgba(255, 255, 255, .3));
+  padding: 2rem;
+  line-height: 2;
+  text-align: center;
+}
+.invitation button {
+  width: 40%;
+  min-width: 70px;
+}
+.invitation .rsvp {
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
 }
